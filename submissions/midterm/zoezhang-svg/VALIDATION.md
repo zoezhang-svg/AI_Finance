@@ -1,0 +1,20 @@
+# Actual validation record - October 18, 2026
+
+## Official requirements and repository
+Read the root README, SETUP guide, midterm README and template, lab README, runner, chain helpers, all five bots, orchestrator and relevant lending/AMM sources. No AGENTS.md was found in the repository or its inspected parent paths. Existing untracked starter files outside this submission folder were preserved. The official PR rule permits changes only under `submissions/midterm/zoezhang-svg/`.
+
+Fetched current course main `99299c88117f2156dec94061e277d67102c0c000`. `git diff HEAD..origin/main -- submissions/midterm/README.md submissions/midterm/_TEMPLATE week-03/code/lab-bot/chain.py` returned no changes before creating the feature branch from origin/main. No Python unit suite for lab-bot is supplied; the Foundry tests exercise different contracts and were not run as evidence for this bot.
+
+## Commands and outcomes
+
+1. `/Users/zoe/AI_Finance/bin/python -m unittest discover -s submissions/midterm/zoezhang-svg -p 'test_*.py' -v` from repository root: **12 tests passed**. Covers sizing, no opportunity, invalid data, low balance, utilization/liquidity/position caps, venue choice, missing configuration, fail-closed scans, authorization, stale scan rejection, and approval failure preventing supply. Tests use mocks, not chain transactions.
+2. `/Users/zoe/AI_Finance/bin/python -u run.py my_strategy_bot` from `week-03/code/lab-bot/`: runner started and skipped without a configured wallet. Intentionally interrupted with Ctrl-C (exit 130).
+3. `AGENT_ADDRESS=0x8053fB8473eF8A3CF731D09226DDEb7A08c96625 /Users/zoe/AI_Finance/bin/python -u run.py my_strategy_bot` from the same directory: runner scanned actual chain state and returned `skip: position, liquidity, balance, gas or yield limit`. Intentionally interrupted with Ctrl-C (exit 130). Neither run used `--live`.
+4. Read-only Python probe using `chain.w3`, `erc20`, `at`: chain ID **84532**; initial observed block **48308863**. Code lengths: tUSDC 3334 bytes; LendA and LendB 11308 bytes each. Observed LendA APR raw 3862502697985829 (about 0.38625% annually), utilization raw 260852403038945441; LendB APR raw 2515841446059434 (about 0.25158%), utilization raw 210524225415225497. These values change with chain state.
+5. Public-wallet read probe: ETH **9993638861954025 wei**, tUSDC **808128856240106767327 raw units**, both venue shares **0**. At those observed rates, the best haircut 30-day return on the 10% wallet allocation is about 0.0128 tUSDC, below the 0.10 threshold. Therefore no live deposit is currently proposed.
+6. No `AGENT_KEY` was configured in the execution environment; no secret was read or printed. No `.env` or funder/bot key files were loaded for signing. No live transaction, approval, transfer or swap was executed.
+7. PDF evidence draft was generated, reopened with pypdf, verified to contain the public address, and rendered with PDFium for visual review. Poppler rendering failed due to bundled Fontconfig configuration, and an initial PyMuPDF attempt lacked `fitz`; PDFium succeeded. Draft is explicitly incomplete. No transaction hash or leaderboard screenshot has been fabricated.
+8. Git CLI push dry run failed because HTTPS credentials were unavailable (`could not read Username`). The connected GitHub account is `zoezhang-svg` and has write permission on its own repository, so connector publication is attempted separately.
+
+## Still required
+A qualifying market opportunity, explicit wallet-owner approval of a concrete transaction, secure local signing configuration, successful actual receipt(s), and a genuine leaderboard screenshot. The PDF must then be completed and uploaded to Classroom. The PR remains a draft pending real execution evidence. No claim is made that the midterm minimum has already been met.
